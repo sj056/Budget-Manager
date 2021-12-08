@@ -6,6 +6,7 @@ import logo from "../images/logo.png"
 import { useHistory } from 'react-router'
 export default function LandingPage() {
     let his=useHistory();
+
     useEffect(()=>{
         auth.onAuthStateChanged(function(user) {
             if (user) {
@@ -13,9 +14,11 @@ export default function LandingPage() {
             } 
             });
     },[])
+
     const signin = (e) => {
         auth.signInWithPopup(provider).catch(alert);
     }
+    
     return (
         <div>
             <div className="land">
