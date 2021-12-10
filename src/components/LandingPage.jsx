@@ -20,7 +20,7 @@ export default function LandingPage() {
     }
     
     return (
-        <div>
+        <>
             <div className="land">
                 <img className="img" src={logo} alt="Logo" />
                 <p className="text">
@@ -28,6 +28,6 @@ export default function LandingPage() {
                 tempor incididunt ut labore et dolore.</p>
                 <button onClick={e=>signin(e)} type="button" class="btn my-5">Try it!!!!</button>
             </div>
-        </div>
+        </>
     )
 }
