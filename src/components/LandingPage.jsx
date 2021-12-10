@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+// import App from '../App'
 import {auth, provider} from './config/fire'
 import "../css/LandingPage.css"
 import logo from "../images/logo.png"
+import { useHistory } from 'react-router'
 export default function LandingPage() {
+    let his=useHistory();
+
+    useEffect(()=>{
+        auth.onAuthStateChanged(function(user) {
+            if (user) {
+             his.push('/app');
+            } 
+            });
+    },[])
+
     const signin = (e) => {
         auth.signInWithPopup(provider).catch(alert);
     }
+    
     return (
         <div>
             <div className="land">

@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3&display=swap');
+.navHome{
+    justify-content: space-between;
+    box-shadow: rgb(0 0 0 / 7%) 0px 3px 6px, rgb(0 0 0 / 16%) 0px 3px 6px;
+    padding: 10px 20px;
+}
+.navHome>.collapse{
+    flex-grow: inherit;
+}
+.btns-container{
+    position: fixed;
+    bottom: 2rem;
+    width: 100%;
+    justify-content: space-around;
+}
+.btns-container>button{
+    background: #5584AC;
+    color: white;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 5px;
+}
+.navHome>a{
+    color: #6c6b6b;
+    font-weight: 600;
+    font-size: 30px;
+    letter-spacing: 6px;
+}
+.navHome>.collapse>ul>li>a{
+    padding: 8px 30px !important;
+    color: #0099c5;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
