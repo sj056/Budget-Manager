@@ -40,6 +40,21 @@
     filter: drop-shadow(0px 2px 11px rgba(153, 153, 153, 0.35));
     width: 400px;
 }
+.Create-room>.inputModal>h4{
+    color: #5888b1;
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+.Create-room>.inputModal>.close{
+    height: 18px;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+.Create-room>.inputModal>.close:hover{
+    cursor: pointer;
+}
 .Create-room>.inputModal>form>input,
 .Create-room>.inputModal>form>div>input{
     background: #e9efef;
@@ -52,7 +67,28 @@
 .Create-room>.inputModal>form>div>input{
     width: 100%;
 }
+.Create-room>.inputModal>form>input:focus-visible,
+.Create-room>.inputModal>form>div>input:focus-visible{
+outline: none;
+}
 .Create-room>.inputModal>form>button{
     width: 44%;
     margin-left: 28%;
+    background: #5584AC;
+    border: 1.5px solid #5584AC;
+    padding: 4px 16px;
+    border-radius: 6px;
+    color: white;
+    margin-top: 15px;
+}
+.Create-room>.inputModal>form>.add_mem{
+    margin-top: 0px;
+    width: 38%;
+    background: white;
+    color: #5584AC;
+    border: 1.5px solid #5584AC;
+    padding: 4px 16px;
+    border-radius: 6px;
+    margin-left: 31%;
+    font-size: 14px;
 }
