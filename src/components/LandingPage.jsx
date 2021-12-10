@@ -1,5 +1,4 @@
 import React from 'react'
-// import App from '../App'
 import {auth, provider} from './config/fire'
 import "../css/LandingPage.css"
 import logo from "../images/logo.png"
