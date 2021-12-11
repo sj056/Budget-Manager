@@ -4,7 +4,7 @@ import { auth } from './config/fire';
 import NavHome from './NavHome';
 import './../css/Homepage.css';
 import emp from './../images/emptyCardCont.png';
-
+import close from './../images/cross.png';
 
 const Homepage=()=>{
 let his=useHistory();
@@ -22,7 +22,7 @@ const signOut=()=>{
         <section className="content-container">
           <div className="cards-container">
             {createRoom===true?
-            <CreateRoom/>:""}
+            <CreateRoom setCreateRoom={setCreateRoom}/>:""}
             
             <div className="empty-Container">
               <h3>IT'S</h3>
@@ -39,21 +39,29 @@ const signOut=()=>{
     );
 }
 
-const CreateRoom=()=>{
+const CreateRoom=(props)=>{
+
   const addMember=(e)=>{
     e.preventDefault();
     const cont=document.getElementById("memberInputs")
     cont.innerHTML+="<input type='email' placeholder='Gmail id of the member' />"
   }
+
+  const closeModal=(e)=>{
+    e.preventDefault();
+    props.setCreateRoom(false);
+  }
+
   return(
     <section className="Create-room">
       <div className="inputModal">
         <h4>Create room</h4>
+        <img src={close} className="close" alt="close" onClick={e=>closeModal(e)}/>
         <form className="d-flex flex-column">
           <input type="text" placeholder="Name of the Room"/>
           <input type="text" placeholder="Motive of creating a group"/>
           <div id="memberInputs"></div>
-          <button type="add_mem" onClick={e=>addMember(e)}>Add Member</button>
+          <button className="add_mem" type="add_mem" onClick={e=>addMember(e)}>Add Member</button>
           
           <button type="submit">Submit</button>
         </form>
