@@ -10,6 +10,7 @@ const Homepage=()=>{
 let his=useHistory();
 
 const [createRoom,setCreateRoom]=useState(false);
+const [codeTeam,setCodeTeam]=useState(false);
 
 const signOut=()=>{
   auth.signOut();
@@ -23,6 +24,8 @@ const signOut=()=>{
           <div className="cards-container">
             {createRoom===true?
             <CreateRoom setCreateRoom={setCreateRoom}/>:""}
+            {codeTeam===true?
+            <CodeTeam setCodeTeam={setCodeTeam}/>:""}
             
             <div className="empty-Container">
               <h3>IT'S</h3>
@@ -31,7 +34,7 @@ const signOut=()=>{
             </div>
           </div>
           <section className="btns-container d-flex">
-            <button>Enter the code for the room</button>
+            <button onClick={e=>setCodeTeam(true)}>Enter the code for the room</button>
             <button onClick={e=>setCreateRoom(true)}>Create a room</button>
           </section>
         </section>
@@ -69,5 +72,29 @@ const CreateRoom=(props)=>{
     </section>
   );
 }
+
+const CodeTeam=(props)=>{
+
+  const closeModal=(e)=>{
+    e.preventDefault();
+    props.setCodeTeam(false);
+  }
+
+  return(
+    <section className="Create-room">
+      <div className="inputModal">
+        <h4>Enter the Room Code</h4>
+        <img src={close} className="close" alt="close" onClick={e=>closeModal(e)}/>
+        <form className="d-flex flex-column">
+          <input type="text" placeholder="Room Code"/>
+          <div id="memberInputs"></div>
+          
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </section>
+  );
+}
+
 
 export default Homepage;
