@@ -1,24 +1,66 @@
 import React, { useEffect } from "react";
-// import App from '../App'
 import { auth, provider } from "./config/fire";
 import "../css/LandingPage.css";
 import NavLanding from "./NavLanding";
 import logo from "../images/logo.gif";
 import { useHistory } from "react-router";
+
+import { db } from "./config/fire";
+
 export default function LandingPage() {
   let his = useHistory();
 
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
       if (user) {
-        his.push("/app");
+        // if(db.ref('/members/'+user.uid)){
+        //   his.push("/app");
+        // }
+        // else{
+          // db.ref('/members/').push(user.uid);
+          // his.push('/makeProfile');
+        // }
+
+        auth.getUser(user.uid).then(() => {
+          his.push("/app");
+        }).catch(() =>{
+          db.ref('/members/').set(user.uid);
+          his.push('/makeProfile');
+        })
+
       }
     });
   }, []);
 
   const signin = (e) => {
     auth.signInWithPopup(provider).catch(alert);
-  };
+
+  //   auth
+  // .signInWithPopup(provider)
+  // .then((result) => {
+  
+  //   var credential = result.credential;
+
+  //   // This gives you a Google Access Token. You can use it to access the Google API.
+  //   var token = credential.accessToken;
+  //   // The signed-in user info.
+  //   var user = result.user;
+
+  //   if(auth)
+
+  //   // ...
+  // }).catch((error) => {
+  //   // Handle Errors here.
+  //   var errorCode = error.code;
+  //   var errorMessage = error.message;
+  //   // The email of the user's account used.
+  //   var email = error.email;
+  //   // The firebase.auth.AuthCredential type that was used.
+  //   var credential = error.credential;
+  //   // ...
+  // });
+
+      }
 
   return (
     <>

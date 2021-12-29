@@ -1,7 +1,18 @@
 import React from "react";
+import { useHistory } from 'react-router';
+import { auth } from './config/fire';
 import './../css/Nav.css';
 import profile from "./../images/profile.png";
 const NavHome=()=>{
+
+  let his=useHistory();
+
+  const signOut=(e)=>{
+    e.preventDefault();
+    auth.signOut();
+    his.push('/');
+  }
+
     return(
         <nav className="navbar navbar-expand-lg navHome">
         <a class="navbar-brand" href="#">BM</a>
@@ -14,6 +25,7 @@ const NavHome=()=>{
             <li className="nav-item">
               <a className="nav-link" href="#">Home </a>
             </li>
+
            
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -25,6 +37,10 @@ const NavHome=()=>{
                 <div className="dropdown-divider"></div>
                 <a className="dropdown-item" href="#">Something else here</a>
               </div>
+            </li>
+
+            <li className="nav-item">
+              <button onClick={e=>signOut(e)}>SIGN OUT</button>
             </li>
           </ul>
         </div>

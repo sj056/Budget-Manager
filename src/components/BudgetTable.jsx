@@ -41,6 +41,12 @@ export default function BudgetTable() {
 <button className="btn"><span class="material-icons-outlined">
 add
 </span>
+
+<div className='d-flex flex-row'>
+  <div className='mem'></div>
+  <div className='tab'> <table></table><button></button></div>
+</div>
+
 </button>
         </div>
     )

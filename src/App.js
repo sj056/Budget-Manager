@@ -8,6 +8,7 @@ import './components/config/fire.js'
 import LandingPage from './components/LandingPage';
 import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
 import Homepage from './components/Homepage';
+import MakeProfile from './components/MakeProfile';
 // import Nav from './components/Nav';
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
         <Homepage/>
       </Route>
 
+      <Route path="/makeProfile">
+        <MakeProfile/>
+      </Route>
     </Switch>
 
     </Router>
