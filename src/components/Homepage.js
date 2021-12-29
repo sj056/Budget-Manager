@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
-import { auth } from './config/fire';
+import axios from "axios";
+
+import {db} from './config/fire';
+
 import NavHome from './NavHome';
 import './../css/Homepage.css';
+
 import emp from './../images/emptyCardCont.png';
 import close from './../images/cross.png';
 
 const Homepage=()=>{
-let his=useHistory();
 
 const [createRoom,setCreateRoom]=useState(false);
 
-const signOut=()=>{
-  auth.signOut();
-  his.push('/');
-}
+
 
     return(
       <section className="Homepage">
-        <NavHome signOut={signOut}/>
+        <NavHome/>
         <section className="content-container">
           <div className="cards-container">
             {createRoom===true?
@@ -41,6 +40,10 @@ const signOut=()=>{
 
 const CreateRoom=(props)=>{
 
+  const [sent,setSent]=useState(false)
+  // const [email,setEmail]=useState("")
+
+
   const addMember=(e)=>{
     e.preventDefault();
     const cont=document.getElementById("memberInputs")
@@ -52,12 +55,44 @@ const CreateRoom=(props)=>{
     props.setCreateRoom(false);
   }
 
+const handleSend= async(email)=>{
+setSent(true)
+// setEmail(em1)
+console.log(email)
+try{
+await axios.post("http://localhost:4000/send_mail",{
+  email
+})
+}
+catch(error){
+console.log(error)
+}
+  }
+
+  const handleCreateRoom=(e)=>{
+    e.preventDefault();
+    
+    var form = document.getElementById("formCR")
+    var selectElement = form.querySelectorAll('input[type="email"]');
+    
+    for(var i=0;i<selectElement.length;i++){
+     setTimeout(handleSend(selectElement[i].value),4000) 
+    }
+
+    // db.ref("user").set({
+    //   name : name,
+    //   age : age,
+    // }).catch(alert);
+
+
+  }
+
   return(
     <section className="Create-room">
       <div className="inputModal">
         <h4>Create room</h4>
         <img src={close} className="close" alt="close" onClick={e=>closeModal(e)}/>
-        <form className="d-flex flex-column">
+        <form className="d-flex flex-column" id="formCR" onSubmit={e=>handleCreateRoom(e)}>
           <input type="text" placeholder="Name of the Room"/>
           <input type="text" placeholder="Motive of creating a group"/>
           <div id="memberInputs"></div>
