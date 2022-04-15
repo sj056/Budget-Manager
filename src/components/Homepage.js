@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useRef  } from 'react';
+import emailjs from '@emailjs/browser';
+import uniqid from 'uniqid';
+
 import axios from "axios";
-
 import {db} from './config/fire';
-
 import NavHome from './NavHome';
 import './../css/Homepage.css';
 
@@ -10,12 +11,8 @@ import emp from './../images/emptyCardCont.png';
 import close from './../images/cross.png';
 
 const Homepage=()=>{
-
 const [createRoom,setCreateRoom]=useState(false);
 const [codeTeam,setCodeTeam]=useState(false);
-
-
-
     return(
       <section className="Homepage">
         <NavHome/>
@@ -42,52 +39,37 @@ const [codeTeam,setCodeTeam]=useState(false);
 }
 
 const CreateRoom=(props)=>{
-
-  const [sent,setSent]=useState(false)
+  const form = useRef();
+  // const [sent,setSent]=useState(false)
+  // const [mailContent,setMailContent]=useState({})
+  const [code,setCode]=useState('');
   // const [email,setEmail]=useState("")
-
 
   const addMember=(e)=>{
     e.preventDefault();
     const cont=document.getElementById("memberInputs")
-    cont.innerHTML+="<input type='email' placeholder='Gmail id of the member' />"
+    cont.innerHTML+="<input type='email' placeholder='Gmail id of the member' name='emailId' />"
   }
-
   const closeModal=(e)=>{
     e.preventDefault();
     props.setCreateRoom(false);
   }
 
-const handleSend= async(email)=>{
-setSent(true)
-// setEmail(em1)
-console.log(email)
-try{
-await axios.post("http://localhost:4000/send_mail",{
-  email
-})
-}
-catch(error){
-console.log(error)
-}
-  }
+  const sendEmail = () => {
+    emailjs.sendForm('service_quqhtl9', 'template_e9n5qk6', form.current, 'user_NSOXI1OzkN09to6um6fQX')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
 
   const handleCreateRoom=(e)=>{
     e.preventDefault();
-    
-    var form = document.getElementById("formCR")
-    var selectElement = form.querySelectorAll('input[type="email"]');
-    
-    for(var i=0;i<selectElement.length;i++){
-     setTimeout(handleSend(selectElement[i].value),4000) 
-    }
-
-    // db.ref("user").set({
-    //   name : name,
-    //   age : age,
-    // }).catch(alert);
-
-
+    setCode(uniqid());
+    setTimeout(()=>{
+      sendEmail()
+      },9000)
   }
 
   return(
@@ -95,12 +77,12 @@ console.log(error)
       <div className="inputModal">
         <h4>Create room</h4>
         <img src={close} className="close" alt="close" onClick={e=>closeModal(e)}/>
-        <form className="d-flex flex-column" id="formCR" onSubmit={e=>handleCreateRoom(e)}>
-          <input type="text" placeholder="Name of the Room"/>
-          <input type="text" placeholder="Motive of creating a group"/>
+        <form ref={form} className="d-flex flex-column" id="formCR" onSubmit={e=>handleCreateRoom(e)}>
+          <input type="text" placeholder="Name of the Room" name="roomname"/>
+          <input type="text" placeholder="Motive of creating a group" name="motive"/>
           <div id="memberInputs"></div>
           <button className="add_mem" type="add_mem" onClick={e=>addMember(e)}>Add Member</button>
-          
+          <input type="text" name="room_code" id="room" value={code} style={{display:"none"}}/>
           <button type="submit">Submit</button>
         </form>
       </div>
